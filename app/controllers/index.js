@@ -268,8 +268,6 @@ export default class IndexController extends Controller {
   query() {
     var query = this.get("search");
     let countries = this.get("countries");
-    console.log(countries);
-    console.log(query);
     let countriesFiltered = this.get("countries").filter(
       (option) =>
         option.country
@@ -281,7 +279,6 @@ export default class IndexController extends Controller {
   }
   @action
   sortCountries(value) {
-    console.log(value);
     if (value == "active" || value == "critical") {
       this.set(
         "model.countries",
@@ -294,7 +291,6 @@ export default class IndexController extends Controller {
   }
 
   async getSortedCountries(sortby) {
-    console.log(sortby);
     const countrysorts = await fetch(
       "https://api.coronastatistics.live/countries?sort=" + sortby
     );
@@ -305,7 +301,6 @@ export default class IndexController extends Controller {
   @computed("clock.date")
   get outbreakTime() {
     let startDate = new Date("2019-12-01");
-    console.log(this.clock.date, startDate);
     return this.dhms(this.clock.date.getTime() - startDate.getTime());
   }
   
