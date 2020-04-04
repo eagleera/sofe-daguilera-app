@@ -150,13 +150,30 @@
     </div>
     <div class="columns">
         <div class="column">
-            <div class="card rounded-md p-4 shadow-sm">
+            <div class="card rounded-md p-4 shadow-sm h-full">
                 <p class="font-bold mb-8">Rate Distribution</p>
+                <div class="columns">
+                    <div class="column">
+                        <Radarchart 
+                            @data={{chartData}}
+                         />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="column is-8">
-            <div class="card rounded-md p-4 shadow-sm">
+            <div class="card rounded-md p-4 shadow-sm h-full">
                 <p class="font-bold mb-8">Infections History</p>
+                <div class="columns">
+                    <div class="column">
+                        <Linechart 
+                            @data={{@model.timeline}}
+                            @totalcases={{@model.stats.cases}}
+                            @totalrecoveries={{@model.stats.recovered}}
+                            @totaldeaths={{@model.stats.deaths}}
+                         />
+                    </div>
+                </div>
             </div>
         </div>
     </div>

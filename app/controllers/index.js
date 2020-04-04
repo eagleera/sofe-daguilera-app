@@ -339,6 +339,23 @@ export default class IndexController extends Controller {
     return critical;
   }
 
+  @computed("critical", "activeCases", "model")
+  get chartData() {
+    let totalDeaths = 0;
+    let totalRecovered = 0;
+    this.countries.forEach((country) => {
+      totalDeaths = totalDeaths + country.deaths;
+      totalRecovered = totalRecovered + country.recovered;
+    });
+    return {
+      critical: this.critical,
+      active: this.activeCases,
+      deaths: totalDeaths,
+      recoveries: totalRecovered,
+      finished: totalDeaths + totalRecovered,
+    }
+  }
+
   @computed("countries")
   get totalCountries() {
     return this.countries.length;
@@ -376,7 +393,7 @@ export default class IndexController extends Controller {
     });
     return cases;
   }
-  @computed("model", "countries")
+  @computed("countries")
   get deathPercentage() {
     let totalDeaths = 0;
     let totalRecovered = 0;
@@ -386,7 +403,7 @@ export default class IndexController extends Controller {
     });
     return ((totalDeaths / (totalDeaths + totalRecovered)) * 100).toFixed(2);
   }
-  @computed("model", "countries")
+  @computed("countries")
   get recoveredPercentage() {
     let totalDeaths = 0;
     let totalRecovered = 0;
@@ -396,7 +413,7 @@ export default class IndexController extends Controller {
     });
     return ((totalRecovered / (totalDeaths + totalRecovered)) * 100).toFixed(2);
   }
-  @computed("model", "countries")
+  @computed()
   get criticalPercentage() {
     return ((this.get("critical") / this.get("activeCases")) * 100).toFixed(2);
   }

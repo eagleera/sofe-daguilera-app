@@ -15,8 +15,7 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    console.log(this.piedata);
-    let chart = am4core.create("chartdiv", am4charts.PieChart);
+    let chart = am4core.create("piechart", am4charts.PieChart);
     chart.paddingRight = 20;
 
     let data = [];
