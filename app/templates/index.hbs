@@ -5,11 +5,12 @@
                 <p class="title-left font-bold">Infections</p>
                 <div class="columns is-vcentered">
                     <div class="column is-3">
-                        <span class="tag is-info">Medium</span>
+                        <span class="tag is-info is-rounded">
+                            <FaIcon @icon="chart-line" /></span>
                     </div>
                     <div class="column text-right">
-                        <p class="text-2xl font-bold">{{ @model.stats.cases }}</p>
-                        <p class="has-text-grey">36499 today</p>
+                        <p class="text-2xl font-bold">{{number @model.stats.cases}}</p>
+                        <p class="has-text-grey">{{number todayCases }} today</p>
                     </div>
                 </div>
                 <progress class="progress is-small is-info" value="100" />
@@ -20,11 +21,12 @@
                 <p class="title-left font-bold">Deaths</p>
                 <div class="columns is-vcentered">
                     <div class="column is-3">
-                        <span class="tag is-danger">Medium</span>
+                        <span class="tag is-danger font-bold is-rounded">{{ deathPercentage }}%
+                            <FaIcon class="ml-2" @icon="chart-line" /></span>
                     </div>
                     <div class="column text-right">
-                        <p class="text-2xl font-bold">{{ @model.stats.deaths }}</p>
-                        <p class="has-text-grey">36499 today</p>
+                        <p class="text-2xl font-bold">{{number @model.stats.deaths }}</p>
+                        <p class="has-text-grey">{{number todayDeaths }} today</p>
                     </div>
                 </div>
                 <progress class="progress is-small is-danger" value="100" />
@@ -35,11 +37,12 @@
                 <p class="title-left font-bold">Recoveries</p>
                 <div class="columns is-vcentered">
                     <div class="column is-3">
-                        <span class="tag is-success">Medium</span>
+                        <span class="tag is-success font-bold is-rounded">{{ recoveredPercentage }}%
+                            <FaIcon class="ml-2" @icon="chart-line" /></span>
                     </div>
                     <div class="column text-right">
-                        <p class="text-2xl font-bold">{{ @model.stats.recovered }}</p>
-                        <p class="has-text-grey">36499 today</p>
+                        <p class="text-2xl font-bold">{{number @model.stats.recovered }}</p>
+                        <p class="has-text-grey">{{number activeCases }} remaining</p>
                     </div>
                 </div>
                 <progress class="progress is-small is-success" value="100" />
@@ -50,11 +53,12 @@
                 <p class="title-left font-bold">Critical</p>
                 <div class="columns is-vcentered">
                     <div class="column is-3">
-                        <span class="tag is-warning">Medium</span>
+                        <span class="tag is-warning font-bold is-rounded">{{ criticalPercentage }}%
+                            <FaIcon class="ml-2" @icon="chart-line" /></span>
                     </div>
                     <div class="column text-right">
-                        <p class="text-2xl font-bold">1,153,142</p>
-                        <p class="has-text-grey">36499 today</p>
+                        <p class="text-2xl font-bold">{{number critical }}</p>
+                        <p class="has-text-grey">{{number casesPer1M }} per million</p>
                     </div>
                 </div>
                 <progress class="progress is-small is-warning" value="100" />
@@ -72,42 +76,139 @@
                 </div>
                 <div class="columns">
                     <div class="column is-7">
-                        <input class="input" type="text" placeholder="Search...">
+                        {{input type="text" class="input" value=search input=(action "query") placeholder="Search..."}}
                     </div>
-                    <div class="column text-right">
+                    <div class="column text-right is-5">
                         <div class="select">
-                            <select>
+                            <select onchange={{action 'sortCountries' value="target.value"}}>
                                 <option disabled selected>Sort By</option>
-                                <option>With options</option>
+                                <option value="cases">Total Cases</option>
+                                <option value="todayCases">Today Cases</option>
+                                <option value="deaths">Total Deaths</option>
+                                <option value="todayDeaths">Today Deaths</option>
+                                <option value="recovered">Today Recoveries</option>
+                                <option value="active">Active cases</option>
+                                <option value="active">Critical cases</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="columns is-multiline max-h-20rem overflow-y-scroll">
-                    {{#each @model.countries as |country| }}
+                    {{#if filtering }}
+                    {{#each countriesFiltered as |country| }}
                     <div class="column is-12 border-country cursor-pointer">
                         <div class="columns">
-                            <div class="column is-2">
-                                <p>flag</p>
+                            <div class="column is-2 flex">
+                                <img src="assets/flags/{{flagimg countryCodes country.country}}.svg" alt="">
                             </div>
                             <div class="column is-7">
                                 <p class="text-lg font-bold">{{ country.country }}</p>
                                 <p class="text-xs font-bold">
-                                    <span class="has-text-info">{{ country.cases }} Cases</span>
+                                    <span class="has-text-info">{{number country.cases }} Cases</span>
                                     <span>&</span>
-                                    <span class="has-text-danger">{{ country.deaths }} Deaths</span>
+                                    <span class="has-text-danger">{{number country.deaths }} Deaths</span>
                                 </p>
                             </div>
                             <div class="column is-3 flex flex-col text-right justify-center">
-                                <p class="text-xs has-text-info">+{{ country.todayCases }} Cases</p>
-                                <p class="text-xs has-text-danger">+{{ country.todayDeaths }} Deaths</p>
+                                <p class="text-xs has-text-info">+{{number country.todayCases }} Cases</p>
+                                <p class="text-xs has-text-danger">+{{number country.todayDeaths }} Deaths</p>
                             </div>
                         </div>
                     </div>
                     {{/each}}
+                    {{else}}
+                    {{#each @model.countries as |country| }}
+                    <div class="column is-12 border-country cursor-pointer">
+                        <div class="columns">
+                            <div class="column is-2 flex">
+                                <img src="assets/flags/{{flagimg countryCodes country.country}}.svg" alt="">
+                            </div>
+                            <div class="column is-7">
+                                <p class="text-lg font-bold">{{ country.country }}</p>
+                                <p class="text-xs font-bold">
+                                    <span class="has-text-info">{{number country.cases }} Cases</span>
+                                    <span>&</span>
+                                    <span class="has-text-danger">{{number country.deaths }} Deaths</span>
+                                </p>
+                            </div>
+                            <div class="column is-3 flex flex-col text-right justify-center">
+                                <p class="text-xs has-text-info">+{{number country.todayCases }} Cases</p>
+                                <p class="text-xs has-text-danger">+{{number country.todayDeaths }} Deaths</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{/if}}
                 </div>
             </div>
         </div>
-        <div class="column is-8"></div>
+        <div class="column is-8">
+            <div class="card rounded-md p-4 shadow-sm">
+                <p>mapa aqui</p>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            Rate Distribution
+        </div>
+        <div class="column is-8">
+            Infections History
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="card rounded-md p-4 shadow-sm text-center">
+                Infection Distribution By Countries
+            </div>
+        </div>
+        <div class="column">
+            <div class="card rounded-md p-4 shadow-sm">
+                <p class="font-bold mb-8">Infection Rates</p>
+                <div class="columns is-multiline">
+                    <div class="column is-6">
+                        <div class="card rounded-md p-2 shadow-sm bg-gray-200 text-center py-8">
+                            <p class="has-text-success font-bold text-2xl">{{ recoveredPercentage }}%</p>
+                            <p class="font-bold">Recovery Rate</p>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="card rounded-md p-2 shadow-sm bg-gray-200 text-center py-8">
+                            <p class="has-text-danger font-bold text-2xl">{{ deathPercentage }}%</p>
+                            <p class="font-bold">Death Rate</p>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="card rounded-md p-2 shadow-sm bg-gray-200 bg-white text-center py-8">
+                            <p class="has-text-warning font-bold text-2xl">{{ criticalPercentage }}%</p>
+                            <p class="font-bold">Critical Rate</p>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="card rounded-md p-2 shadow-sm bg-gray-200 text-center py-8">
+                            <p class="has-text-info font-bold text-2xl">{{ totalCountries }}</p>
+                            <p class="font-bold">Nations Affected</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="columns is-multiline">
+                <div class="column is-12">
+                    <div class="card rounded-md p-4 shadow-sm">
+                        <p class="font-bold mb-8">Outbreak Started</p>
+                    </div>
+                </div>
+                <div class="column is-12">
+                    <div class="card rounded-md p-4 shadow-sm text-center">
+                        <span class="has-text-primary font-bold mb-2">Project built for the SOFE competition</span>
+                        <p class="mb-2 has-text-grey">Keep your family up to date <br /> with the coronavirus outbreak.
+                        </p>
+                        <p class="text-sm underline">Created by: Noel Daniel Aguilera</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
