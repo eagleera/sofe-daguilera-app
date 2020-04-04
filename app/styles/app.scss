@@ -1,1 +1,18 @@
+// $primary: #650360;
+// $info:    #00A4D9;
+// $success: #5eadb2;
+$warning: #ffc107;
+// $danger:  #ed6c63;
+
 @import "bulma";
+
+.border-country{
+    border-bottom: 1px solid lightgrey;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        background-color: #ebf8ff;
+    }
+}
+.max-h-20rem{
+    max-height: 20rem;
+}
