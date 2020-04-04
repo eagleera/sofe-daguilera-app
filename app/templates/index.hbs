@@ -1,6 +1,113 @@
-<div class="jumbo">
-    <p class="text-4xl ml-4">holaaaa</p>
-    <div class="control">
-        <button class="button is-link is-light">Cancel</button>
+<div>
+    <div class="columns mt-4">
+        <div class="column">
+            <div class="card rounded-md p-4 shadow-sm">
+                <p class="title-left font-bold">Infections</p>
+                <div class="columns is-vcentered">
+                    <div class="column is-3">
+                        <span class="tag is-info">Medium</span>
+                    </div>
+                    <div class="column text-right">
+                        <p class="text-2xl font-bold">{{ @model.stats.cases }}</p>
+                        <p class="has-text-grey">36499 today</p>
+                    </div>
+                </div>
+                <progress class="progress is-small is-info" value="100" />
+            </div>
+        </div>
+        <div class="column">
+            <div class="card rounded-md p-4 shadow-sm">
+                <p class="title-left font-bold">Deaths</p>
+                <div class="columns is-vcentered">
+                    <div class="column is-3">
+                        <span class="tag is-danger">Medium</span>
+                    </div>
+                    <div class="column text-right">
+                        <p class="text-2xl font-bold">{{ @model.stats.deaths }}</p>
+                        <p class="has-text-grey">36499 today</p>
+                    </div>
+                </div>
+                <progress class="progress is-small is-danger" value="100" />
+            </div>
+        </div>
+        <div class="column">
+            <div class="card rounded-md p-4 shadow-sm">
+                <p class="title-left font-bold">Recoveries</p>
+                <div class="columns is-vcentered">
+                    <div class="column is-3">
+                        <span class="tag is-success">Medium</span>
+                    </div>
+                    <div class="column text-right">
+                        <p class="text-2xl font-bold">{{ @model.stats.recovered }}</p>
+                        <p class="has-text-grey">36499 today</p>
+                    </div>
+                </div>
+                <progress class="progress is-small is-success" value="100" />
+            </div>
+        </div>
+        <div class="column">
+            <div class="card rounded-md p-4 shadow-sm">
+                <p class="title-left font-bold">Critical</p>
+                <div class="columns is-vcentered">
+                    <div class="column is-3">
+                        <span class="tag is-warning">Medium</span>
+                    </div>
+                    <div class="column text-right">
+                        <p class="text-2xl font-bold">1,153,142</p>
+                        <p class="has-text-grey">36499 today</p>
+                    </div>
+                </div>
+                <progress class="progress is-small is-warning" value="100" />
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="card rounded-md p-4 shadow-sm">
+                <div class="columns">
+                    <div class="column">
+                        <p class="font-bold">Affected Countries</p>
+                    </div>
+                    <div class="column text-right has-text-grey">Today's Statistics</div>
+                </div>
+                <div class="columns">
+                    <div class="column is-7">
+                        <input class="input" type="text" placeholder="Search...">
+                    </div>
+                    <div class="column text-right">
+                        <div class="select">
+                            <select>
+                                <option disabled selected>Sort By</option>
+                                <option>With options</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns is-multiline max-h-20rem overflow-y-scroll">
+                    {{#each @model.countries as |country| }}
+                    <div class="column is-12 border-country cursor-pointer">
+                        <div class="columns">
+                            <div class="column is-2">
+                                <p>flag</p>
+                            </div>
+                            <div class="column is-7">
+                                <p class="text-lg font-bold">{{ country.country }}</p>
+                                <p class="text-xs font-bold">
+                                    <span class="has-text-info">{{ country.cases }} Cases</span>
+                                    <span>&</span>
+                                    <span class="has-text-danger">{{ country.deaths }} Deaths</span>
+                                </p>
+                            </div>
+                            <div class="column is-3 flex flex-col text-right justify-center">
+                                <p class="text-xs has-text-info">+{{ country.todayCases }} Cases</p>
+                                <p class="text-xs has-text-danger">+{{ country.todayDeaths }} Deaths</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="column is-8"></div>
     </div>
 </div>
