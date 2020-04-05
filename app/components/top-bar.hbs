@@ -1,11 +1,19 @@
 <div class="text-center shadow-xl bg-blue-900 p-3">
     <div class="columns">
         <div class="column flex justify-center items-center">
-            <img src="/assets/images/covid_logo.png" class="inline-block w-10">
-            <span class="font-bold text-xl ml-2 has-text-white text-left leading-none">
-                Coronavirus <br />
-                <span class="has-text-warning">Tracking App</span>
-            </span>
+            <LinkTo @route="index">
+                <div class="columns">
+                    <div class="column flex items-center justify-center pr-0">
+                        <img src="/assets/images/covid_logo.png" class="inline-block w-16">
+                    </div>
+                    <div class="column pl-0">
+                        <span class="font-bold text-xl has-text-white text-left leading-none">
+                            Coronavirus
+                            <span class="has-text-warning block">Tracking App</span>
+                        </span>
+                    </div>
+                </div>
+            </LinkTo>
         </div>
     </div>
 </div>
