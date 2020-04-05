@@ -5,7 +5,7 @@ const EmberApp = require("ember-cli/lib/broccoli/ember-app");
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     amcharts4: {
-      files: ["charts", "maps", "themes/animated"],
+      files: ["charts", "maps", "themes/animated", "geodata/worldLow"],
     },
   });
 

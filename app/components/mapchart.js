@@ -10,7 +10,8 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.chart = null;
-    this.chartda = this.get("data");    
+    this.chartdata = this.get("data");
+    this.countryCodes = this.get("countryCodes");
     this.option = this.get("option");
   },
 
@@ -20,34 +21,62 @@ export default Component.extend({
     if (this.chart) {
       this.chart.dispose();
     }
-    console.log(this.chartdata);
     let color;
-    switch(this.option){
-        case "recovered":
-            color = "#10c469";
-            break;
-        case "critical":
-            color = "#f9c851";
-            break;
-        case "deaths":
-            color = "#ff5b5b";
-            break;
-        default:
-            color = "#21AFDD";
-            break;
-    }
     let mapData = [];
-    this.fuse.list.forEach((element) => {
-      if (element[option] != 0) {
-        mapData.push({
-          id: this.countryCodes[element.country],
-          name: element.country,
-          value: element[option],
-          color: am4core.color(color),
+    switch (this.option) {
+      case "recovered":
+        color = "#10c469";
+        this.chartdata.forEach((country) => {
+          if (country.recovered != 0) {
+            mapData.push({
+              id: this.countryCodes[country.country],
+              name: country.country,
+              value: country.recovered,
+              color: am4core.color(color),
+            });
+          }
         });
-      }
-    });
-
+        break;
+      case "critical":
+        color = "#f9c851";
+        this.chartdata.forEach((country) => {
+          if (country.critical != 0) {
+            mapData.push({
+              id: this.countryCodes[country.country],
+              name: country.country,
+              value: country.critical,
+              color: am4core.color(color),
+            });
+          }
+        });
+        break;
+      case "deaths":
+        color = "#ff5b5b";
+        this.chartdata.forEach((country) => {
+          if (country.critical != 0) {
+            mapData.push({
+              id: this.countryCodes[country.country],
+              name: country.country,
+              value: country.deaths,
+              color: am4core.color(color),
+            });
+          }
+        });
+        break;
+      default:
+        color = "#21AFDD";
+        this.chartdata.forEach((country) => {
+            if (country.critical != 0) {
+              mapData.push({
+                id: this.countryCodes[country.country],
+                name: country.country,
+                value: country.cases,
+                color: am4core.color(color),
+              });
+            }
+          });
+        break;
+    }
     let chartMap = am4core.create("mapchart", am4maps.MapChart);
     // Set map definition
     chartMap.geodata = am4geodata_worldLow;
@@ -76,7 +105,7 @@ export default Component.extend({
     circle.tooltipText = "{name}: [bold]{value}[/]";
 
     chartMap.events.on("ready", () => {
-    //   this.isLoadingMap = false;
+      //   this.isLoadingMap = false;
     });
 
     imageSeries.heatRules.push({
@@ -108,8 +137,9 @@ export default Component.extend({
     });
     let polygonTemplate = polygonSeries.mapPolygons.template;
     polygonTemplate.tooltipText = "{name}";
-    polygonTemplate.fill = am4core.color("#282d37");
-    polygonTemplate.stroke = am4core.color("#313a46");
+    polygonTemplate.fill = am4core.color("#e1e6ee");
+    polygonTemplate.stroke = am4core.color("#cdd1d9");
+    // polygonTemplate.stroke = am4core.color("#e1e6ee");
     this.chart = chartMap;
   },
 
