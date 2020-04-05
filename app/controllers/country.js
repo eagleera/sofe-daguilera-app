@@ -11,19 +11,35 @@ export default class CountryController extends Controller {
 
   @computed("model")
   get deathPercentage() {
-    return (this.model.stats.deaths / (this.model.stats.deaths + this.model.stats.recovered) * 100).toFixed(2);
+    let percentage = (this.model.stats.deaths / (this.model.stats.deaths + this.model.stats.recovered) * 100).toFixed(2) + "%";
+    if(percentage == "NaN%"){
+      percentage = "N/A";
+    }
+    return percentage;
   }
   @computed("model")
   get recoveredPercentage() {
-    return (this.model.stats.recovered / (this.model.stats.deaths + this.model.stats.recovered) * 100).toFixed(2);
+    let percentage = (this.model.stats.recovered / (this.model.stats.deaths + this.model.stats.recovered) * 100).toFixed(2) + "%";
+    if(percentage == "NaN%"){
+      percentage = "N/A";
+    }
+    return percentage;
   }
   @computed("model")
   get criticalPercentage() {
-    return (this.model.stats.critical / (this.model.stats.active) * 100).toFixed(2);
+    let percentage = (this.model.stats.critical / (this.model.stats.active) * 100).toFixed(2) + "%";
+    if (percentage == "NaN%") {
+      percentage = "N/A";
+    }
+    return percentage;
   }
   @computed("model")
   get mildCases() {
-    return (100 - (this.model.stats.critical / (this.model.stats.active) * 100)).toFixed(2);
+    let percentage = (100 - (this.model.stats.critical / (this.model.stats.active) * 100)).toFixed(2);
+    if(percentage == "NaN%") {
+      percentage = "N/A";
+    }
+    return percentage;
   }
 
   @computed("clock.date")
