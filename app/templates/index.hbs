@@ -97,45 +97,49 @@
                     {{#if filtering }}
                     {{#each countriesFiltered as |country| }}
                     <div class="column is-12 border-country cursor-pointer">
-                        <div class="columns">
-                            <div class="column is-2 flex">
-                                <img src="assets/flags/{{flagimg countryCodes country.country}}.svg" alt="">
+                        <LinkTo @route="country" @query={{hash name=country.country}}>
+                            <div class="columns">
+                                <div class="column is-2 flex">
+                                    <img src="assets/flags/{{flagimg countryCodes country.country}}.svg" alt="">
+                                </div>
+                                <div class="column is-7">
+                                    <p class="text-lg font-bold">{{ country.country }}</p>
+                                    <p class="text-xs font-bold">
+                                        <span class="has-text-info">{{number country.cases }} Cases</span>
+                                        <span>&</span>
+                                        <span class="has-text-danger">{{number country.deaths }} Deaths</span>
+                                    </p>
+                                </div>
+                                <div class="column is-3 flex flex-col text-right justify-center">
+                                    <p class="text-xs has-text-info">+{{number country.todayCases }} Cases</p>
+                                    <p class="text-xs has-text-danger">+{{number country.todayDeaths }} Deaths</p>
+                                </div>
                             </div>
-                            <div class="column is-7">
-                                <p class="text-lg font-bold">{{ country.country }}</p>
-                                <p class="text-xs font-bold">
-                                    <span class="has-text-info">{{number country.cases }} Cases</span>
-                                    <span>&</span>
-                                    <span class="has-text-danger">{{number country.deaths }} Deaths</span>
-                                </p>
-                            </div>
-                            <div class="column is-3 flex flex-col text-right justify-center">
-                                <p class="text-xs has-text-info">+{{number country.todayCases }} Cases</p>
-                                <p class="text-xs has-text-danger">+{{number country.todayDeaths }} Deaths</p>
-                            </div>
-                        </div>
+                        </LinkTo>
                     </div>
                     {{/each}}
                     {{else}}
                     {{#each @model.countries as |country| }}
                     <div class="column is-12 border-country cursor-pointer">
-                        <div class="columns">
-                            <div class="column is-2 flex">
-                                <img src="assets/flags/{{flagimg countryCodes country.country}}.svg" alt="">
+                        <LinkTo @route="country" @query={{hash name=country.country}}>
+                            <div class="columns">
+                                <div class="column is-2 flex">
+                                    <img src="assets/flags/{{flagimg countryCodes country.country}}.svg" alt="">
+                                </div>
+                                <div class="column is-7">
+                                    <p class="text-lg font-bold">{{ country.country }}</p>
+                                    <p class="text-xs font-bold">
+                                        <span class="has-text-info">{{number country.cases }} Cases</span>
+                                        <span>&</span>
+                                        <span class="has-text-danger">{{number country.deaths }} Deaths</span>
+                                    </p>
+                                </div>
+                                <div class="column is-3 flex flex-col text-right justify-center">
+                                    <p class="text-xs has-text-info">+{{number country.todayCases }} Cases</p>
+                                    <p class="text-xs has-text-danger">+{{number country.todayDeaths }} Deaths</p>
+                                </div>
                             </div>
-                            <div class="column is-7">
-                                <p class="text-lg font-bold">{{ country.country }}</p>
-                                <p class="text-xs font-bold">
-                                    <span class="has-text-info">{{number country.cases }} Cases</span>
-                                    <span>&</span>
-                                    <span class="has-text-danger">{{number country.deaths }} Deaths</span>
-                                </p>
-                            </div>
-                            <div class="column is-3 flex flex-col text-right justify-center">
-                                <p class="text-xs has-text-info">+{{number country.todayCases }} Cases</p>
-                                <p class="text-xs has-text-danger">+{{number country.todayDeaths }} Deaths</p>
-                            </div>
-                        </div>
+                        </LinkTo>
                     </div>
                     {{/each}}
                     {{/if}}
@@ -154,9 +158,7 @@
                 <p class="font-bold mb-8">Rate Distribution</p>
                 <div class="columns">
                     <div class="column">
-                        <Radarchart 
-                            @data={{chartData}}
-                         />
+                        <Radarchart @data={{chartData}} />
                     </div>
                 </div>
             </div>
@@ -166,12 +168,8 @@
                 <p class="font-bold mb-8">Infections History</p>
                 <div class="columns">
                     <div class="column">
-                        <Linechart 
-                            @data={{@model.timeline}}
-                            @totalcases={{@model.stats.cases}}
-                            @totalrecoveries={{@model.stats.recovered}}
-                            @totaldeaths={{@model.stats.deaths}}
-                         />
+                        <Linechart @data={{@model.timeline}} @totalcases={{@model.stats.cases}}
+                            @totalrecoveries={{@model.stats.recovered}} @totaldeaths={{@model.stats.deaths}} />
                     </div>
                 </div>
             </div>
