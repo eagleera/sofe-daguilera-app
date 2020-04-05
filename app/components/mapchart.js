@@ -15,9 +15,13 @@ export default Component.extend({
     this.option = this.get("option");
   },
 
-  didInsertElement() {
+  didUpdateAttrs() {
     this._super(...arguments);
-    // this.isLoadingMap = true;
+    this.option = this.get("option");
+    this.loadMap();
+  },
+
+  loadMap() {
     if (this.chart) {
       this.chart.dispose();
     }
@@ -66,15 +70,15 @@ export default Component.extend({
       default:
         color = "#21AFDD";
         this.chartdata.forEach((country) => {
-            if (country.critical != 0) {
-              mapData.push({
-                id: this.countryCodes[country.country],
-                name: country.country,
-                value: country.cases,
-                color: am4core.color(color),
-              });
-            }
-          });
+          if (country.critical != 0) {
+            mapData.push({
+              id: this.countryCodes[country.country],
+              name: country.country,
+              value: country.cases,
+              color: am4core.color(color),
+            });
+          }
+        });
         break;
     }
     let chartMap = am4core.create("mapchart", am4maps.MapChart);
@@ -141,6 +145,11 @@ export default Component.extend({
     polygonTemplate.stroke = am4core.color("#cdd1d9");
     // polygonTemplate.stroke = am4core.color("#e1e6ee");
     this.chart = chartMap;
+  },
+
+  didInsertElement() {
+    this._super(...arguments);
+    this.loadMap();
   },
 
   willDestroyElement() {

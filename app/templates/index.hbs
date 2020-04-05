@@ -150,15 +150,36 @@
             <div class="card rounded-md p-4 shadow-sm">
                 <div class="columns">
                     <div class="column is-offset-6 text-right">
-                        <button class="button mr-1 is-small is-light is-info">Cases</button>
-                        <button class="button mr-1 is-small is-light is-danger">Deaths</button>
-                        <button class="button mr-1 is-small is-light is-success">Recovered</button>
-                        <button class="button mr-1 is-small is-light is-warning">Critical</button>
+                        <button
+                            class="button mr-1 is-small is-light is-info"
+                            {{on "click" (fn this.loadMap "cases")}}
+                        >
+                            Cases
+                        </button>
+                        <button
+                            class="button mr-1 is-small is-light is-danger"
+                            value="deaths"
+                            {{on "click" (fn this.loadMap "deaths")}}
+                        >
+                            Deaths
+                        </button>
+                        <button 
+                            class="button mr-1 is-small is-light is-success"
+                            {{on "click" (fn this.loadMap "recovered")}}
+                        >
+                            Recovered
+                        </button>
+                        <button 
+                            class="button mr-1 is-small is-light is-warning"
+                            {{on "click" (fn this.loadMap "critical")}}
+                        >
+                            Critical
+                        </button>
                     </div>
                 </div>
                 <div class="columns">
                     <div class="column">
-                        <Mapchart @data={{@model.countries}} @countryCodes={{countryCodes}} />
+                        <Mapchart @data={{@model.countries}} @countryCodes={{countryCodes}} @option={{mut option}} />
                     </div>
                 </div>
             </div>

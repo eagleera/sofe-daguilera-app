@@ -1,12 +1,14 @@
 import Controller from "@ember/controller";
 import { action, computed } from "@ember/object";
 import { alias } from "@ember/object/computed";
+import { tracked } from '@glimmer/tracking';
 import { inject as service } from "@ember/service";
 import fetch from "fetch";
 
 export default class IndexController extends Controller {
   search = "";
   countriesFiltered = [];
+  @tracked option = "cases";
 
   @service("outbreak-clock")
   clock;
@@ -38,6 +40,11 @@ export default class IndexController extends Controller {
       );
     }
     this.getSortedCountries(value);
+  }
+
+  @action
+  loadMap(value){
+    this.option = value;
   }
 
   async getSortedCountries(sortby) {
