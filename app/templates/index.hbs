@@ -1,6 +1,6 @@
 <div>
-    <div class="columns mt-4">
-        <div class="column">
+    <div class="columns mt-4 is-mobile is-multiline">
+        <div class="column is-6-touch is-3-desktop">
             <div class="card rounded-md p-4 shadow-sm">
                 <p class="title-left font-bold">Infections</p>
                 <div class="columns is-vcentered">
@@ -16,7 +16,7 @@
                 <progress class="progress is-small is-info" value="100" />
             </div>
         </div>
-        <div class="column">
+        <div class="column is-6-touch is-3-desktop">
             <div class="card rounded-md p-4 shadow-sm">
                 <p class="title-left font-bold">Deaths</p>
                 <div class="columns is-vcentered">
@@ -32,7 +32,7 @@
                 <progress class="progress is-small is-danger" value="100" />
             </div>
         </div>
-        <div class="column">
+        <div class="column is-6-touch is-3-desktop">
             <div class="card rounded-md p-4 shadow-sm">
                 <p class="title-left font-bold">Recoveries</p>
                 <div class="columns is-vcentered">
@@ -48,7 +48,7 @@
                 <progress class="progress is-small is-success" value="100" />
             </div>
         </div>
-        <div class="column">
+        <div class="column is-6-touch is-3-desktop">
             <div class="card rounded-md p-4 shadow-sm">
                 <p class="title-left font-bold">Critical</p>
                 <div class="columns is-vcentered">
@@ -100,7 +100,7 @@
                         <LinkTo @route="country" @query={{hash name=country.country}}>
                             <div class="columns">
                                 <div class="column is-2 flex">
-                                    <img src="assets/flags/{{flagimg countryCodes country.country}}.svg" alt="">
+                                    <img src="assets/flags/{{flagimg country.country}}.svg" alt="">
                                 </div>
                                 <div class="column is-7">
                                     <p class="text-lg font-bold">{{ country.country }}</p>
@@ -124,7 +124,7 @@
                         <LinkTo @route="country" @query={{hash name=country.country}}>
                             <div class="columns">
                                 <div class="column is-2 flex">
-                                    <img src="assets/flags/{{flagimg countryCodes country.country}}.svg" alt="">
+                                    <img src="assets/flags/{{flagimg country.country}}.svg" alt="">
                                 </div>
                                 <div class="column is-7">
                                     <p class="text-lg font-bold">{{ country.country }}</p>

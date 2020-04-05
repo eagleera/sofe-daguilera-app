@@ -84,13 +84,19 @@ export default class CountryRoute extends Route {
             break;
         case "car":
             name = "central african republic";
+            break;
+        default:
+            name = params.name;
+            break;
     }
     // } else if (nameTimeline == "faeroe islands") {
     //   nameTimeline = "Denmark";
+    console.log(name);
+    console.log(params.name);
     const responsetimeline = await fetch(
       "https://api.coronastatistics.live/timeline/" + name.toLowerCase()
     );
     const timeline = await responsetimeline.json();
-    return { stats, timeline };
+    return { stats, timeline, name };
   }
 }
