@@ -148,7 +148,19 @@
         </div>
         <div class="column is-8">
             <div class="card rounded-md p-4 shadow-sm">
-                <p>mapa aqui</p>
+                <div class="columns">
+                    <div class="column is-offset-6 text-right">
+                        <button class="button mr-1 is-small is-light is-info">Cases</button>
+                        <button class="button mr-1 is-small is-light is-danger">Deaths</button>
+                        <button class="button mr-1 is-small is-light is-success">Recovered</button>
+                        <button class="button mr-1 is-small is-light is-warning">Critical</button>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <Mapchart @data={{@model.countries}} />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
