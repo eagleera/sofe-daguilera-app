@@ -16,7 +16,6 @@ export default Component.extend({
     this._super(...arguments);
     let chart = am4core.create("radarChart", am4charts.RadarChart);
     chart.paddingRight = 20;
-    console.log(this.chartdata);
 
     let data = [{
         "category": "Critical",

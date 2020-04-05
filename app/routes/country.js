@@ -13,6 +13,7 @@ export default class CountryRoute extends Route {
     );
     const stats = await responsestats.json();
     let name;
+    params.name = params.name.toLowerCase();
     switch (params.name) {
         case "usa":
         case "u.s. virgin islands":
@@ -91,8 +92,6 @@ export default class CountryRoute extends Route {
     }
     // } else if (nameTimeline == "faeroe islands") {
     //   nameTimeline = "Denmark";
-    console.log(name);
-    console.log(params.name);
     const responsetimeline = await fetch(
       "https://api.coronastatistics.live/timeline/" + name.toLowerCase()
     );

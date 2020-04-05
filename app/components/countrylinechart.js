@@ -16,8 +16,6 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
     let caseData = [];
-    console.log(this.chartdata);
-    console.log(this.stats);
     if (!this.chartdata.multiple) {
       caseData = this.chartdata.data.timeline;
     } else {
