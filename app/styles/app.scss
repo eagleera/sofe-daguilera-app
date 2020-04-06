@@ -6,13 +6,20 @@ $warning: #ffc107;
 
 @import "bulma";
 
-.border-country{
-    border-bottom: 1px solid lightgrey;
-    transition: all 0.3s ease-in-out;
-    &:hover{
-        background-color: #ebf8ff;
-    }
+.border-country {
+  border-bottom: 1px solid lightgrey;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #ebf8ff;
+  }
 }
-.max-h-20rem{
-    max-height: 20rem;
+.max-h-20rem {
+  max-height: 20rem;
+}
+.max-h-5rem {
+  max-height: 5rem;
+}
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
